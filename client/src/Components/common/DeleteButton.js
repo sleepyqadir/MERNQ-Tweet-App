@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from "react";
-import { Button, Icon, Confirm } from "semantic-ui-react";
+import { Button, Icon, Confirm, Popup } from "semantic-ui-react";
 import { useMutation } from "@apollo/react-hooks";
 import {
   DELETE_POST_MUTATION,
@@ -12,6 +12,7 @@ function DeleteButton(props) {
   const mutation = props.commentId
     ? DELETE_COMMENT_MUTATION
     : DELETE_POST_MUTATION;
+  const content = props.commentId ? "delete comment" : "delete post";
 
   const [deletePostOrComment] = useMutation(mutation, {
     update(proxy) {
@@ -37,17 +38,22 @@ function DeleteButton(props) {
   });
   return (
     <Fragment>
-      <Button
-        as="div"
-        color="red"
-        onClick={() => {
-          setConfirmOpen(true);
-        }}
-        floated="right"
-      >
-        {" "}
-        <Icon name="trash" style={{ margin: "0" }} />
-      </Button>
+      <Popup
+        content={content}
+        trigger={
+          <Button
+            as="div"
+            color="red"
+            onClick={() => {
+              setConfirmOpen(true);
+            }}
+            floated="right"
+          >
+            {" "}
+            <Icon name="trash" style={{ margin: "0" }} />
+          </Button>
+        }
+      />
       <Confirm
         open={confirmOpen}
         onCancel={() => {

@@ -12,6 +12,7 @@ import {
   Icon,
   Label,
   Form,
+  Popup,
 } from "semantic-ui-react";
 import moment from "moment";
 import LikeButton from "../Components/common/LikeButton";
@@ -78,20 +79,25 @@ function SinglePost(props) {
               <hr />
               <Card.Content extra>
                 <LikeButton user={user} post={{ id, likeCount, likes }} />
-                <Button
-                  as="div"
-                  labelPosition="right"
-                  onClick={() => {
-                    console.log("comennt...");
-                  }}
-                >
-                  <Button basic color="olive">
-                    <Icon name="comments" />
-                  </Button>
-                  <Label basic color="olive" pointing="left">
-                    {commentCount}
-                  </Label>
-                </Button>
+                <Popup
+                  content="comment on post"
+                  trigger={
+                    <Button
+                      as="div"
+                      labelPosition="right"
+                      onClick={() => {
+                        formInputReference.current.focus();
+                      }}
+                    >
+                      <Button basic color="olive">
+                        <Icon name="comments" />
+                      </Button>
+                      <Label basic color="olive" pointing="left">
+                        {commentCount}
+                      </Label>
+                    </Button>
+                  }
+                />
                 {user && user.username === username && (
                   <DeleteButton postId={id} callBack={deleteButtonCallback} />
                 )}
@@ -127,7 +133,7 @@ function SinglePost(props) {
               return (
                 <Card fluid key={comment.id}>
                   <Card.Content>
-                    {user && user.username === username && (
+                    {user && user.username === comment.username && (
                       <DeleteButton postId={id} commentId={comment.id} />
                     )}
                     <Card.Header>{comment.username}</Card.Header>
