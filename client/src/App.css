@@ -9,3 +9,8 @@
   width: 500px;
   margin: auto;
 }
+.ui.basic.teal.button:hover, .ui.basic.teal.buttons .button:hover {
+  background-color: rgba(7, 189, 189, 0.575)!important;
+  box-shadow: 0 0 0 1px #009c95 inset!important;
+  color: white!important;
+}

@@ -52,7 +52,11 @@ function PostForm() {
       });
       values.body = "";
     },
+    onError: (err) => {
+      console.log(err);
+    },
   });
+  console.log(error);
   function createPostCallback() {
     createPost();
   }
@@ -65,6 +69,7 @@ function PostForm() {
           <Form.Input
             placeholder="Hi world!"
             name="body"
+            error={error ? true : false}
             onChange={onHandleChange}
             value={values.body}
           />
@@ -73,6 +78,13 @@ function PostForm() {
           Post
         </Button>
       </Form>
+      {error && (
+        <div className="ui error message">
+          <ul className="list">
+            <li>{error.graphQLErrors[0].message}</li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
